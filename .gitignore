@@ -1,0 +1,16 @@
+# Local configuration and secrets
+sarlaft-automation/.env
+.env
+.env.*
+!.env.example
+
+# Python environments and generated files
+venv/
+**/venv/
+__pycache__/
+**/__pycache__/
+*.py[cod]
+
+# Runtime uploads
+sarlaft-automation/uploads/*
+!sarlaft-automation/uploads/.gitkeep
