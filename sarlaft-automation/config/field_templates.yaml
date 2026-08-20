@@ -1,0 +1,37 @@
+# Un bloque por tipo de pantalla. "keywords" se usa para autoclasificar la imagen
+# por su texto OCR si el nombre de archivo no trae el tipo.
+# "fields" son regex sobre el texto OCR crudo -> nombre de variable del prompt.
+
+inclusion_lista:
+  keywords: ["LISTA DE RESERVA", "LISTA DE PERSONAS NO VINCULABLES"]
+  fields:
+    pep: 'PEP'   # si aparece "PEP" en el motivo -> condicion_pep = SI
+
+datos_generales_banco:
+  keywords: ["CONSULTA DE DATOS GENERALES", "Tipo Id"]
+  fields:
+    actividad_economica: 'Actividad Econ[oó]mica\s+([^\n]+)'
+    nivel_riesgo_actividad: 'Nivel de riesgo actividad econ[oó]mica\s+([^\n]+)'
+    fecha_actualizacion: 'Fecha [ÚU]ltima [dD]e Actualizaci[oó]n\s+([\d/]+)'
+    oficina: 'Oficina Que Administra la Relaci[oó]n\s+([^\n]+)'
+
+ficha_fiduciaria:
+  keywords: ["Consulta detallada de cliente", "Fiduciaria"]
+  fields:
+    fecha_apertura: 'Fecha de creaci[oó]n\s+([\d/-]+)'
+
+movimientos:
+  keywords: ["Movimientos Por Encargo", "MOVIMIENTOS DEL CLIENTE"]
+  fields:
+    movimientos: 'Descripci[oó]n [Mm]cto\s+([^\n]+)'
+    canal: 'Oficina\s+([^\n]+)'
+
+productos:
+  keywords: ["PRODUCTOS DEL CLIENTE", "Consulta Consolidada de Producto"]
+  fields:
+    productos: 'Cuentas Aho/Cte\s+([^\n]+)'
+
+saldo:
+  keywords: ["SALDO DEL CLIENTE", "Saldos en L[ií]nea"]
+  fields:
+    saldo: 'Saldo total\s+\$?\s*([\d.,]+)'

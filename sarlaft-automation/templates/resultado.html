@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Resultado del análisis</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<h1>{{ case.nombre }}</h1>
+<p class="subtitle">Cédula {{ case.cedula }} — guardado en output/alertas.xlsx</p>
+
+<div class="result-block">
+  <h2>Análisis generado</h2>
+  <div class="result-text">{{ case.analisis_generado }}</div>
+</div>
+
+{% if faltantes %}
+<div class="result-block">
+  <h2>Imágenes no cargadas</h2>
+  {% for label, motivo in faltantes %}
+    <div class="faltante-tag">{{ label }}</div>
+    <div class="result-text">{{ motivo }}</div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<div class="result-block">
+  <h2>Datos extraídos</h2>
+  <table>
+    {% for k, v in case.to_dict().items() %}
+      {% if v %}
+      <tr><td class="k">{{ k }}</td><td>{{ v }}</td></tr>
+      {% endif %}
+    {% endfor %}
+  </table>
+</div>
+
+<a class="back" href="/">← Cargar otro caso</a>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Análisis de alerta SARLAFT</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<h1>Nueva alerta</h1>
+<p class="subtitle">Carga las capturas del caso. Si no tienes alguna, déjala vacía y justifica por qué.</p>
+
+<form action="/procesar" method="post" enctype="multipart/form-data">
+  <div class="field">
+    <label for="cedula">Cédula</label>
+    <input type="text" id="cedula" name="cedula" required>
+  </div>
+  <div class="field">
+    <label for="nombre">Nombre</label>
+    <input type="text" id="nombre" name="nombre" required>
+  </div>
+
+  {% for slot_key, slot_label in slots %}
+  <div class="slot-card">
+    <div class="slot-title">{{ slot_label }}</div>
+    <input type="file" name="{{ slot_key }}" accept="image/*">
+    <div class="justificacion">
+      <label>Si no hay imagen, explica por qué (opcional)</label>
+      <textarea name="justificacion_{{ slot_key }}" placeholder="Ej: producto no aplica para este cliente"></textarea>
+    </div>
+  </div>
+  {% endfor %}
+
+  <button type="submit">Generar análisis</button>
+</form>
+</body>
+</html>
